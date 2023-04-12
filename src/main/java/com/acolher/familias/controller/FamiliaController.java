@@ -1,23 +1,31 @@
 package com.acolher.familias.controller;
 
 import com.acolher.familias.model.Familia;
-import com.acolher.familias.repository.FamiliaRepository;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.acolher.familias.service.FamiliaService;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/familia")
 public class FamiliaController {
 
-    FamiliaRepository familiaRepository;
-    FamiliaController(FamiliaRepository familiaRepository){
-        this.familiaRepository = familiaRepository;
+    FamiliaService familiaService;
+
+    FamiliaController(FamiliaService familiaService){
+        this.familiaService = familiaService;
     }
 
     @PostMapping
     public Familia cadastrarFamilia(@RequestBody Familia familia){
-        return familiaRepository.save(familia);
+        return familiaService.cadastrarFamilia(familia);
+    }
+    @GetMapping
+    public List<Familia> listaDeFamiliasCadastradas(){
+        return familiaService.listaDeFamiliasCadastradas();
+    }
+    @GetMapping("/{id}")
+    public Familia dadosDaFamilia(@PathVariable("id")Long id){
+        return familiaService.dadosDaFamilia(id);
     }
 }
