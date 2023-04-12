@@ -28,4 +28,8 @@ public class FamiliaController {
     public Familia dadosDaFamilia(@PathVariable("id")Long id){
         return familiaService.dadosDaFamilia(id);
     }
+    @PutMapping("/{id}")
+    public Familia atualizarFamilia(@PathVariable("id")Long id, @RequestBody Familia familia){
+        return familiaService.atualizarFamilia(id, familia);
+    }
 }

@@ -29,4 +29,13 @@ public class FamiliaService {
         }
         return null;
     }
+
+    public Familia atualizarFamilia(Long familiaId, Familia familia){
+        Optional<Familia> dados = familiaRepository.findById(familiaId);
+        if (dados.isPresent()){
+            familia.setId(familiaId);
+            return familiaRepository.save(familia);
+        }
+        return null;
+    }
 }
