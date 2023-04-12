@@ -1,9 +1,9 @@
 package com.acolher.familias.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import javax.persistence.*;
+import java.util.List;
 
 @Entity
 public class Familia {
@@ -13,6 +13,27 @@ public class Familia {
     private Long id;
 
     private String endereco;
+
+    @JsonIgnore
+    @OneToMany(mappedBy="familia")
+    private List<Pessoa> pessoa;
+
+    public Familia() {
+    }
+
+    public Familia(Long id, String endereco, List<Pessoa> pessoa) {
+        this.id = id;
+        this.endereco = endereco;
+        this.pessoa = pessoa;
+    }
+
+    public List<Pessoa> getPessoa() {
+        return pessoa;
+    }
+
+    public void setPessoa(List<Pessoa> pessoa) {
+        this.pessoa = pessoa;
+    }
 
     public Long getId() {
         return id;
