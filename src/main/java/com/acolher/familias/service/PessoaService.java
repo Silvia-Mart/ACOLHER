@@ -6,6 +6,8 @@ import com.acolher.familias.repository.FamiliaRepository;
 import com.acolher.familias.repository.PessoaRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class PessoaService {
 
@@ -16,14 +18,23 @@ public class PessoaService {
         this.familiaRepository = familiaRepository;
     }
 
-    public Pessoa cadastrarPessoa(Long familiaId,Pessoa pessoa){
-        boolean familiaExiste = familiaRepository.existsById(familiaId);
-        if(familiaExiste == true){
-            Familia familia = familiaRepository.getReferenceById(familiaId);
+    public Pessoa cadastrarPessoaNova(Long familiaId, Pessoa pessoa){
+        Optional<Familia> dadosFamilia = familiaRepository.findById(familiaId);
+        if (dadosFamilia.isPresent()){
+            Familia familia = dadosFamilia.get();
             pessoa.setFamilia(familia);
             return pessoaRepository.save(pessoa);
         }
-        return pessoa;
+        return null;
+    }
+
+
+    public Pessoa dadosDaPessoa(Long pessoaId){
+        Optional<Pessoa> dados = pessoaRepository.findById(pessoaId);
+        if (dados.isPresent()){
+            return dados.get();
+        }
+        return null;
     }
 
 }
