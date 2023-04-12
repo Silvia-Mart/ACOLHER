@@ -18,7 +18,7 @@ public class PessoaService {
         this.familiaRepository = familiaRepository;
     }
 
-    public Pessoa cadastrarPessoaNova(Long familiaId, Pessoa pessoa){
+    public Pessoa cadastrarPessoa(Long familiaId, Pessoa pessoa){
         Optional<Familia> dadosFamilia = familiaRepository.findById(familiaId);
         if (dadosFamilia.isPresent()){
             Familia familia = dadosFamilia.get();
@@ -35,6 +35,25 @@ public class PessoaService {
             return dados.get();
         }
         return null;
+    }
+
+    public Pessoa atualizarPessoa(Long pessoaId, Pessoa pessoa){
+        Optional<Pessoa> dados = pessoaRepository.findById(pessoaId);
+        if (dados.isPresent()){
+            Pessoa dadosAntigos = dados.get();
+            pessoa.setId(pessoaId);
+            pessoa.setFamilia(dadosAntigos.getFamilia());
+
+            return pessoaRepository.save(pessoa);
+        }
+        return  null;
+    }
+
+    public void deletarPessoa(Long pessoaId){
+        Optional<Pessoa> dados = pessoaRepository.findById(pessoaId);
+        if (dados.isPresent()){
+            pessoaRepository.deleteById(pessoaId);
+        }
     }
 
 }
