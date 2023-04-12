@@ -14,7 +14,7 @@ public class Familia {
 
     private String endereco;
 
-    @JsonIgnore
+
     @OneToMany(mappedBy="familia")
     private List<Pessoa> pessoa;
 
