@@ -32,4 +32,8 @@ public class FamiliaController {
     public Familia atualizarFamilia(@PathVariable("id")Long id, @RequestBody Familia familia){
         return familiaService.atualizarFamilia(id, familia);
     }
+    @DeleteMapping("/{id}")
+    public void deletarFamilia(@PathVariable("id")Long id){
+        familiaService.deletarFamilia(id);
+    }
 }

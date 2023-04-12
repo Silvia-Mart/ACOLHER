@@ -38,4 +38,11 @@ public class FamiliaService {
         }
         return null;
     }
+    public void deletarFamilia(Long familiaId){
+        Optional<Familia> dados = familiaRepository.findById(familiaId);
+        if (dados.isPresent()){
+            familiaRepository.deleteById(familiaId);
+        }
+    }
+
 }
