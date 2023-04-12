@@ -1,7 +1,6 @@
 package com.acolher.familias.controller;
 
 import com.acolher.familias.model.Pessoa;
-import com.acolher.familias.repository.PessoaRepository;
 import com.acolher.familias.service.PessoaService;
 import org.springframework.web.bind.annotation.*;
 

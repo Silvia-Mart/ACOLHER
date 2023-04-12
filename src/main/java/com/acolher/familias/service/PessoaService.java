@@ -5,7 +5,6 @@ import com.acolher.familias.model.Pessoa;
 import com.acolher.familias.repository.FamiliaRepository;
 import com.acolher.familias.repository.PessoaRepository;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestBody;
 
 @Service
 public class PessoaService {
@@ -17,7 +16,7 @@ public class PessoaService {
         this.familiaRepository = familiaRepository;
     }
 
-    public Pessoa cadastrarPessoa(Long familiaId, @RequestBody Pessoa pessoa){
+    public Pessoa cadastrarPessoa(Long familiaId,Pessoa pessoa){
         boolean familiaExiste = familiaRepository.existsById(familiaId);
         if(familiaExiste == true){
             Familia familia = familiaRepository.getReferenceById(familiaId);
