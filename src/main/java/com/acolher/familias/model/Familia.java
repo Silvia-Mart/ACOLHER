@@ -1,10 +1,8 @@
 package com.acolher.familias.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.acolher.familias.enums.SituacaoFamiliaEnum;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @Entity
@@ -14,18 +12,19 @@ public class Familia {
     @GeneratedValue(strategy= GenerationType.AUTO)
     private Long id;
 
-    @NotBlank
     private String cidade;
-    @NotBlank
+
     private String cep;
-    @NotBlank
+
     private String rua;
-    @NotBlank
+
     private int numero;
-    @NotBlank
+
     private String bairro;
-    @NotBlank
+
     private String complemento;
+
+    private SituacaoFamiliaEnum situacaoFamilia;
 
     @OneToMany(mappedBy="familia")
     private List<Pessoa> pessoa;
@@ -33,15 +32,14 @@ public class Familia {
     public Familia() {
     }
 
-    public Familia(Long id, String cidade, String cep, String rua, int numero, String bairro, String complemento, List<Pessoa> pessoa) {
-        this.id = id;
+    public Familia(String cidade, String cep, String rua, int numero, String bairro, String complemento, SituacaoFamiliaEnum situacaoFamilia) {
         this.cidade = cidade;
         this.cep = cep;
         this.rua = rua;
         this.numero = numero;
         this.bairro = bairro;
         this.complemento = complemento;
-        this.pessoa = pessoa;
+        this.situacaoFamilia = situacaoFamilia;
     }
 
     public List<Pessoa> getPessoa() {
@@ -108,6 +106,14 @@ public class Familia {
         this.complemento = complemento;
     }
 
+    public SituacaoFamiliaEnum getSituacaoFamilia() {
+        return situacaoFamilia;
+    }
+
+    public void setSituacaoFamilia(SituacaoFamiliaEnum situacaoFamilia) {
+        this.situacaoFamilia = situacaoFamilia;
+    }
+
     @Override
     public String toString() {
         return "Familia{" +
@@ -118,6 +124,7 @@ public class Familia {
                 ", numero=" + numero +
                 ", bairro='" + bairro + '\'' +
                 ", complemento='" + complemento + '\'' +
+                ", situacaoFamilia='" + situacaoFamilia + '\'' +
                 ", pessoa=" + pessoa +
                 '}';
     }

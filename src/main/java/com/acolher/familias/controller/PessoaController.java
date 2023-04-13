@@ -1,5 +1,6 @@
 package com.acolher.familias.controller;
 
+import com.acolher.familias.dto.PessoaDto;
 import com.acolher.familias.model.Pessoa;
 import com.acolher.familias.service.PessoaService;
 import org.springframework.web.bind.annotation.*;
@@ -14,8 +15,8 @@ public class PessoaController {
     }
 
     @PostMapping("/{id}")
-    public Pessoa cadastrarPessoa(@PathVariable("id")Long id, @RequestBody Pessoa pessoa){
-        return pessoaService.cadastrarPessoa(id, pessoa);
+    public Pessoa cadastrarPessoa(@PathVariable("id")Long id, @RequestBody PessoaDto pessoaDto){
+        return pessoaService.cadastrarPessoa(id, pessoaDto.transferenciaDeDados());
     }
 
     @GetMapping("/{id}")
@@ -23,8 +24,8 @@ public class PessoaController {
         return pessoaService.dadosDaPessoa(id);
     }
     @PutMapping("/{id}")
-    public Pessoa atualizarPessoa(@PathVariable("id")Long id, @RequestBody Pessoa pessoa){
-        return pessoaService.atualizarPessoa(id, pessoa);
+        public Pessoa atualizarPessoa(@PathVariable("id")Long id, @RequestBody PessoaDto pessoaDto){
+        return pessoaService.atualizarPessoa(id, pessoaDto.transferenciaDeDados());
     }
 
     @DeleteMapping("/{id}")

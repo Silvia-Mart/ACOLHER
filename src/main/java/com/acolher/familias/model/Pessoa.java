@@ -3,10 +3,6 @@ package com.acolher.familias.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Past;
-
 
 import java.time.LocalDateTime;
 import java.util.Date;
@@ -17,19 +13,17 @@ public class Pessoa {
     @GeneratedValue(strategy= GenerationType.AUTO)
     private Long id;
 
-    @NotBlank
     private String nomeCompleto;
-    @NotNull
+
     private int idade;
-    @NotBlank
+
     private String telefone;
-    @NotNull
-    @Past
+
     private Date dataNascimento;
-    @NotBlank
+
     private String profissao;
-    @NotNull
-    private Boolean isTrabalha;
+
+    private Boolean estaTrabalhando;
 
     private LocalDateTime dataCadastro = LocalDateTime.now();
 
@@ -42,16 +36,13 @@ public class Pessoa {
     public Pessoa() {
     }
 
-    public Pessoa(Long id, String nomeCompleto, int idade, String telefone, Date dataNascimento, String profissao, Boolean isTrabalha, LocalDateTime dataCadastro, Familia familia) {
-        this.id = id;
+    public Pessoa(String nomeCompleto, int idade, String telefone, Date dataNascimento, String profissao, Boolean estaTrabalhando) {
         this.nomeCompleto = nomeCompleto;
         this.idade = idade;
         this.telefone = telefone;
         this.dataNascimento = dataNascimento;
         this.profissao = profissao;
-        this.isTrabalha = isTrabalha;
-        this.dataCadastro = dataCadastro;
-        this.familia = familia;
+        this.estaTrabalhando = estaTrabalhando;
     }
 
     public Long getId() {
@@ -111,12 +102,12 @@ public class Pessoa {
         this.profissao = profissao;
     }
 
-    public Boolean getTrabalha() {
-        return isTrabalha;
+    public Boolean getEstaTrabalhando() {
+        return estaTrabalhando;
     }
 
-    public void setTrabalha(Boolean trabalha) {
-        isTrabalha = trabalha;
+    public void setEstaTrabalhando(Boolean estaTrabalhando) {
+        this.estaTrabalhando = estaTrabalhando;
     }
 
     public  LocalDateTime getDataCadastro() {
@@ -136,7 +127,7 @@ public class Pessoa {
                 ", telefone='" + telefone + '\'' +
                 ", dataNascimento=" + dataNascimento +
                 ", profissao='" + profissao + '\'' +
-                ", isTrabalha=" + isTrabalha +
+                ", estaTrabalhando=" + estaTrabalhando +
                 ", dataCadastro=" + dataCadastro +
                 ", familia=" + familia +
                 '}';
