@@ -42,6 +42,7 @@ public class Familia {
         this.situacaoFamilia = situacaoFamilia;
     }
 
+
     public List<Pessoa> getPessoa() {
         return pessoa;
     }

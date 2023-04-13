@@ -1,11 +1,13 @@
 package com.acolher.familias.service;
 
+import com.acolher.familias.exception.EntityException;
 import com.acolher.familias.model.Familia;
 import com.acolher.familias.model.Pessoa;
 import com.acolher.familias.repository.FamiliaRepository;
 import com.acolher.familias.repository.PessoaRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -25,16 +27,20 @@ public class PessoaService {
             pessoa.setFamilia(familia);
             return pessoaRepository.save(pessoa);
         }
-        return null;
+        throw new EntityException("Não foi encontrado a familia para fazer conexão.");
     }
 
 
-    public Pessoa dadosDaPessoa(Long pessoaId){
+    public Pessoa pegarDadosDaPessoa(Long pessoaId){
         Optional<Pessoa> dados = pessoaRepository.findById(pessoaId);
         if (dados.isPresent()){
             return dados.get();
         }
-        return null;
+        throw new EntityException("Essa pessoa não existe.");
+    }
+
+    public List<Pessoa> listarTodasAsPessoasCadastradas(){
+        return pessoaRepository.findAll();
     }
 
     public Pessoa atualizarPessoa(Long pessoaId, Pessoa pessoa){
@@ -46,13 +52,15 @@ public class PessoaService {
 
             return pessoaRepository.save(pessoa);
         }
-        return  null;
+        throw new EntityException("Essa pessoa não existe.");
     }
 
     public void deletarPessoa(Long pessoaId){
         Optional<Pessoa> dados = pessoaRepository.findById(pessoaId);
         if (dados.isPresent()){
             pessoaRepository.deleteById(pessoaId);
+        }else {
+            throw new EntityException("Essa pessoa não existe.");
         }
     }
 

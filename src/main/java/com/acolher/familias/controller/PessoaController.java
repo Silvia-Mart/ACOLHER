@@ -3,7 +3,12 @@ package com.acolher.familias.controller;
 import com.acolher.familias.dto.PessoaDto;
 import com.acolher.familias.model.Pessoa;
 import com.acolher.familias.service.PessoaService;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
+import java.util.List;
 
 
 @RestController
@@ -15,22 +20,28 @@ public class PessoaController {
     }
 
     @PostMapping("/{id}")
-    public Pessoa cadastrarPessoa(@PathVariable("id")Long id, @RequestBody PessoaDto pessoaDto){
-        return pessoaService.cadastrarPessoa(id, pessoaDto.transferenciaDeDados());
+    public ResponseEntity<Pessoa> cadastrarPessoa(@PathVariable("id")Long id, @Valid @RequestBody PessoaDto pessoaDto) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(pessoaService.cadastrarPessoa(id, pessoaDto.transferenciaDeDados()));
     }
 
     @GetMapping("/{id}")
-    public Pessoa dadosDaPessoa(@PathVariable("id")Long id){
-        return pessoaService.dadosDaPessoa(id);
+    public ResponseEntity<Pessoa> pegarDadosDaPessoa(@PathVariable("id")Long id){
+        return ResponseEntity.status(HttpStatus.FOUND).body(pessoaService.pegarDadosDaPessoa((id)));
     }
+
+    @GetMapping
+    public ResponseEntity<List<Pessoa>> listarTodasAsPessoasCadastradas(){
+        return ResponseEntity.status(HttpStatus.OK).body(pessoaService.listarTodasAsPessoasCadastradas());
+    }
+
     @PutMapping("/{id}")
-        public Pessoa atualizarPessoa(@PathVariable("id")Long id, @RequestBody PessoaDto pessoaDto){
-        return pessoaService.atualizarPessoa(id, pessoaDto.transferenciaDeDados());
+    public ResponseEntity<Pessoa> atualizarPessoa(@PathVariable("id")Long id, @Valid @RequestBody PessoaDto pessoaDto){
+        return ResponseEntity.status(HttpStatus.CREATED).body(pessoaService.atualizarPessoa(id, pessoaDto.transferenciaDeDados()));
     }
 
     @DeleteMapping("/{id}")
-    public  void deletarPessoa(@PathVariable("id")Long id){
+    public ResponseEntity deletarPessoa(@PathVariable("id")Long id){
         pessoaService.deletarPessoa(id);
+        return ResponseEntity.status(HttpStatus.OK).body(id);
     }
-
 }

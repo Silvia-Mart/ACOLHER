@@ -4,6 +4,7 @@ import com.acolher.familias.enums.SituacaoFamiliaEnum;
 import com.acolher.familias.model.Familia;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 public class FamiliaDto {
     @NotBlank
@@ -12,14 +13,14 @@ public class FamiliaDto {
     private String cep;
     @NotBlank
     private String rua;
-    @NotBlank
+    @NotNull
     private int numero;
     @NotBlank
     private String bairro;
     @NotBlank
     private String complemento;
 
-    @NotBlank
+    @NotNull
     private SituacaoFamiliaEnum situacaoFamilia;
 
     public FamiliaDto() {
